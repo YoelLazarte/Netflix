@@ -1,0 +1,275 @@
+:root {
+    /* --primary-color: #635bff; */
+    --primary-color: #8c222b;
+    /* --secondary: #0a2540; */
+    --secondary: #d0d2d4;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #292929;
+
+}
+
+.body {
+    display: flex;
+    width: 100%;
+    font-family: "Helvetica Neue","Arial",
+    sans-serif;
+    padding: 3rem;
+}
+
+.container2 {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    max-width: 90%;
+    gap: 10px;
+}
+
+.content {
+    height: 16rem;
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    box-shadow: 0px 18px 36px -18px 
+    rgba(0,0,0,0.1),
+    0px 30px 45px -30px rgba(50,50,93,0.25);
+    background-color: rgb(21, 21, 21);
+    cursor: pointer;
+    width: 100%;
+    flex-basis: 20rem;
+    padding: 0.25rem;
+    /* min-height: 30rem; */
+    height: 20rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.content > h1 {
+    color: #c8c8c9;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.content > p {
+    color: #9f9fa3;
+    font-size: 1.125rem;
+    line-height: 1.55;
+    font-weight: 500;
+}
+
+.card-background {
+    height: 13rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.card:hover .card-background {
+    height: 10rem;
+}
+
+.card-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card:hover .action-bottom-bar a {
+    opacity: 1;
+}
+
+.action-bottom-bar {
+    display: flex;
+    font-size: 1.125rem;
+    height: 2.5rem;
+    width: 100%;
+}
+
+.action-bottom-bar a {
+    display: flex;
+    gap: 0.4rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 800;
+    opacity: 0;
+    padding: 0 1.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.action-bottom-bar a:hover {
+    color: var(--secondary);
+}
+
+.action-bottom-bar a:hover svg {
+    color: var(--secondary);
+}
+
+.action-bottom-bar a svg {
+    transition: all 0.2s ease-in-out;
+}
+
+.arrow {
+    display: none;
+}
+
+.action-bottom-bar a:hover .arrow {
+    display: block;
+}
+
+.action-bottom-bar a:hover .chevron {
+    display: none;
+}
+
+
+/* ============ Buscador */
+
+
+.contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh; 
+  }
+
+.group {
+    display: flex;
+    line-height: 28px;
+    justify-content: center;    
+    align-items: center;
+    position: relative;
+    min-width: 400px;
+  }
+  
+  .input {
+    width: 100%;
+    height: 50px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: 0.3s ease;
+  }
+  
+  .input::placeholder {
+    color: #9e9ea7;
+  }
+  
+  .input:focus,
+  input:hover {
+    outline: none;
+    border-color: rgba(234, 226, 183, 0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(234 226 183 / 10%);
+  }
+  
+  .icon {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+  }
+
+/* Tarjetas JS*/
+
+  .mostrar-lista{
+    display: none;
+  }
+
+  .productos{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+/* ============ Modal */
+
+.modal-content{
+    color: rgb(224, 221, 219);
+}
+
+
+
+@media (min-width: 600px) {
+    .menu-icon {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .navigation {
+        display: none;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .navigation--mobile {
+        top: var(--navbar-height);
+        position: absolute;
+        right: 0;
+        display: flex;
+        padding: 5rem 3.5rem;
+        min-height: 100%;
+        background-color: var(--background);
+        gap: 0.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+        opacity: 0.95;
+        animation: fadein 0.3s forwards;
+    }
+
+    @keyframes fadein {
+        0% {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        100% {
+            opacity: 1;
+            width: 100%;
+            height: calc(100vh - var(--navbar-height));
+        }
+    }
+
+    .navigation--mobile--fadeout {
+        animation: fadeout 300ms forwards;
+    }
+
+    @keyframes fadeout {
+        0% {
+            opacity: 1;
+            width: 100%;
+            height: calc(100vh - var(--navbar-height));
+        }
+
+        100% {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+    }
+
+}
