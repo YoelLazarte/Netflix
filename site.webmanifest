@@ -2,7 +2,7 @@
     "dir" : "ltr",
     "lang" : "es",
     "name" : "Netflix",
-    "scope" : "/",
+    "scope" : "/Netflix/",
     "display" : "minimal-ui",
     "start_url" : "/Netflix/index.html",
     "short_name" : "Netflix",
@@ -14,32 +14,32 @@
     "prefer_related_applications" : false,
     "icons" : [
         {
-            "src": "img/icono/16x16.png",
+            "src": "/Netflix/img/icono/16x16.png",
             "sizes": "16x16"
         },
         {
-            "src": "img/icono/50x50.png",
+            "src": "/Netflix/img/icono/50x50.png",
             "sizes": "50x50",
-			"type": "image/png"
+            "type": "image/png"
         },
         {
-            "src": "img/icono/96x96.png",
+            "src": "/Netflix/img/icono/96x96.png",
             "sizes": "96x96",
-			"type": "image/png"
+            "type": "image/png"
         },
         {
-            "src": "img/icono/144x144.png",
+            "src": "/Netflix/img/icono/144x144.png",
             "sizes": "144x144",
-			"type": "image/png"
+            "type": "image/png"
         },
         {
-            "src": "img/icono/192x192.png",
+            "src": "/Netflix/img/icono/192x192.png",
             "sizes": "192x192",
-			"type": "image/png"
+            "type": "image/png"
         },
         {
-            "src": "img/icono/300x300.png",
+            "src": "/Netflix/img/icono/300x300.png",
             "sizes": "300x300",
-			"type": "image/png"
+            "type": "image/png"
         }
     ]}
