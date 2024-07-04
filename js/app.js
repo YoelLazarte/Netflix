@@ -1,7 +1,7 @@
 
 if( 'serviceWorker' in navigator ){
   // Registro el SW
-  navigator.serviceWorker.register('../sw.js');
+  navigator.serviceWorker.register('/Netflix/sw.js');
   
 } else {
   alert('Tu navegador no soporta esta Web APP');

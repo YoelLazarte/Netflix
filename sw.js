@@ -3,15 +3,15 @@ const CACHE_NAME= 'Cache-v1';
 // Guardo en el cache los archivos de la apliación
 
 const CACHE_FILES = [
-    '/',
-    'index.html',
-    'favoritos.html',
-    'js/app.js',
+    '/Netflix/',
+    '/Netflix/index.html',
+    '/Netflix/favoritos.html',
+    '/Netflix/js/app.js',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
-    'css/estilos.css',
-    'img/imagen.jpg',
-    'img/logo.png',
-    'img/net.png'
+    '/Netflix/css/estilos.css',
+    '/Netflix/img/imagen.jpg',
+    '/Netflix/img/logo.png',
+    '/Netflix/img/net.png'
 ];
 
 // Cuando se instala el SW, Guardo todo en el cache
