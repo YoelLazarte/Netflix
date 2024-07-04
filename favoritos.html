@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <!--Meta Data-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Title-->
+    <title>Favoritos</title>
+    <!--CSS and JavaScript-->
+    <script src="js/app.js" defer></script>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <link rel="manifest" href="/site.webmanifest" crossorigin="use-credentials" />
-
+    
     <link rel="stylesheet" href="css/estilos.css">
+    <!--Font Awesome Icons-->
+    <script src="https://kit.fontawesome.com/d5635d350d.js" crossorigin="anonymous"></script>
 
-    <link rel="icon" type="image/png" href="img/net.png">
-
-    <title>Netflix</title>
 </head>
-<body>
-   
+
+<body onload="favoritesMovieLoader()">
+
+    <!--Header Bar-->
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="index.html">
             <img src="img/logo.png" alt="Netflix" width="124" height="64">
           </a>
           <button class="navbar-toggler bg-white " type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +31,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link text-white active" aria-current="page" href="#">Home</a>
+              <a class="nav-link text-white active" aria-current="page" href="index.html">Home</a>
               <a class="nav-link text-white" href="#">Series</a>
               <a class="nav-link text-white" href="#">Peliculas</a>
               <a class="nav-link text-white" href="#">Originales</a>
@@ -69,17 +72,18 @@
           </div>
         </div>
       </nav>
-    
 
-    <div class="alerta"></div>
 
-    <section class="container mt-5">
-      <!-- <div class="body"> -->
-        <div class="row cartas">
-                
+      <div class="alerta-borrar"></div>
+
+
+
+    <!--Main Content Container-->
+    <div class="main">
+        <div class="fav-container">
+
         </div>
-              
-    </section>
+    </div>
 
     <div class="modal-container">
         <div class="modal fade" id="staticBackdrop"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -99,11 +103,7 @@
           </div>
     </div>
 
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    <script src="js/app.js"></script>
-    
 </body>
+
 </html>
