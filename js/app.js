@@ -13,6 +13,8 @@ if( 'serviceWorker' in navigator ){
   const buscadorInput = document.querySelector('#buscadorId');
   const resultado = document.querySelector('.cartas');
 
+  
+
   async function peliculas(buscar){
     try{
         const api = `https://www.omdbapi.com/?s=${buscar}&apikey=cc67d59f`;
@@ -29,7 +31,6 @@ if( 'serviceWorker' in navigator ){
     
     }
 
-//   peliculas('avengers')  
   
   function BuscarPeliculas(){
     let buscarTermino = (buscadorInput.value).trim();
@@ -64,18 +65,26 @@ if( 'serviceWorker' in navigator ){
                 <div class="corner right-top"></div>
                 <div class="corner right-bottom"></div>
                 <img src="${peliculaPoster}" alt="${peliculas[i].Title}">
+                
                 <figcaption>
+                <div class="">
+                <div class="col-12 ">
                     <h3>${peliculas[i].Title}</h3>
-                    <p>
-                        258 Serenity Lane, Crestwood Hills
-                    </p>
-                    <button class="btn" onClick=addTofavorites('${peliculasLista.dataset.id}')>
+                    <p class="card-text mt-2 mb-0 text-warning">${peliculas[i].imdbRating} <i class="fa-regular fa-star"></i></p>
+                </div>
+                
+                <div class="contenido-card w-100 mt-5">
+                   <button class="btn" onClick=addTofavorites('${peliculasLista.dataset.id}')>
                          <svg viewBox="0 0 17.503 15.625" height="20.625" width="20.503" xmlns="http://www.w3.org/2000/svg" class="icono">
                            <path transform="translate(0 0)" d="M8.752,15.625h0L1.383,8.162a4.824,4.824,0,0,1,0-6.762,4.679,4.679,0,0,1,6.674,0l.694.7.694-.7a4.678,4.678,0,0,1,6.675,0,4.825,4.825,0,0,1,0,6.762L8.752,15.624ZM4.72,1.25A3.442,3.442,0,0,0,2.277,2.275a3.562,3.562,0,0,0,0,5l6.475,6.556,6.475-6.556a3.563,3.563,0,0,0,0-5A3.443,3.443,0,0,0,12.786,1.25h-.01a3.415,3.415,0,0,0-2.443,1.038L8.752,3.9,7.164,2.275A3.442,3.442,0,0,0,4.72,1.25Z" id="Fill"></path>
                          </svg>
-                        </button>
-                        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">ver mas
-                        </button>
+                    </button>
+                    <button class="btn2 btn btn-dark btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Detalles</button>
+                </div>
+                <div class="col-6">
+                </div>
+                
+                </div>
                 </figcaption>
             </figure>
         
@@ -88,16 +97,15 @@ if( 'serviceWorker' in navigator ){
     cargarDetalles();
 
   }
-
   
+  
+  // 
 
   
   function cargarDetalles(){
     const buscarListaPelicula = resultado.querySelectorAll('.productos');
-    buscarListaPelicula.forEach(pelicula =>{
-        // console.log(pelicula)    
+    buscarListaPelicula.forEach(pelicula =>{  
         pelicula.addEventListener('click', async() =>{
-            // console.log(pelicula.dataset.id);
             try{
               const resultado = await fetch(`https://www.omdbapi.com/?i=${pelicula.dataset.id}&apikey=cc67d59f`);
               const detallePelis = await resultado.json();
@@ -148,38 +156,25 @@ if( 'serviceWorker' in navigator ){
 
   }
 
-// abrir base de datos de IndexDb
-function openDB(){
-  return new Promise((resolve, reject) =>{
-    const request = window.indexedDB.open('FavoritosDB',1);
-
-    request.onupgradeneeded = (event) =>{
-      const db = event.target.result;
-      if(!db.objectStoreNames.contains('Favorito')){
-        db.createObjectStore('Favorito',{keyPath: 'id'});
-      }
-    }
-    
-    request.onsuccess = (event) =>{
-      resolve(event.target.result);
-    };
-  
-    request.onerror = (event) =>{
-      rejec(event.target.error);
-    };
-  });
-}
-
 
 
   
 const alerta = document.querySelector(".alerta");
 
 async function addTofavorites(id) {
-  console.log("fav-item", id);
 
-  localStorage.setItem(Math.random().toString(36).slice(2, 7), id);// math.random for the unique key and value pair
-  // alert('Se agrego la peli!');
+  const api = `https://www.omdbapi.com/?i=${id}&plot=full&apikey=cc67d59f`
+  const resp = await fetch(api);
+  const data = await resp.json();
+  console.log(data);
+
+  let favoritos = localStorage.getItem('favoritos');
+  favoritos = favoritos ? JSON.parse(favoritos) : [];
+
+  favoritos.push(data);
+
+  localStorage.setItem('favoritos', JSON.stringify(favoritos));
+
   alerta.innerHTML=`
   <div class="container alert alert-success" role="alert">
     ¡La película ha sido agregada a tus favoritos <a href="#" class="alert-link">Con Exito!</a>.
@@ -193,17 +188,15 @@ setTimeout(() => {
 
 
 
-const alertaBorrar = document.querySelector(".alerta-borrar");
 
 async function removeFromfavorites(id) {
-  console.log(id);
-  for (i in localStorage) {
-      // If the ID passed as argument matches with value associated with key, then removing it 
-      if (localStorage[i] == id) {
-          localStorage.removeItem(i)
-          break;
-      }
-  }
+  let favoritos = localStorage.getItem('favoritos');
+  favoritos = favoritos ? JSON.parse(favoritos) : [];
+
+  favoritos = favoritos.filter(movie => movie.imdbID !== id);
+
+  localStorage.setItem('favoritos', JSON.stringify(favoritos));
+
   window.location.replace('favoritos.html');
 }
 
@@ -211,14 +204,13 @@ async function removeFromfavorites(id) {
 
 async function favoritesMovieLoader() {
 
-    var output = ''
-    for (i in localStorage) {
-        var id = localStorage.getItem(i);
-        if (id != null) {
-            const api = `https://www.omdbapi.com/?i=${id}&plot=full&apikey=cc67d59f`
-            const resp = await fetch(`${api}`);
-            const data = await resp.json();
-            console.log(data);
+    var output = '';
+
+    let favoritos = localStorage.getItem('favoritos');
+    favoritos = favoritos ? JSON.parse(favoritos) : [];
+
+
+    favoritos.forEach(data =>{      
 
             var img = ''
             if (data.Poster) {
@@ -241,14 +233,12 @@ async function favoritesMovieLoader() {
                         <p class="fav-movie-rating">${data.Year} &middot; <span style="font-size: 15px; font-weight: 600;">${data.imdbRating}</span>/10</p>
                     </div>
                       <i class="fa-solid fa-trash" style="cursor:pointer;" onClick=removeFromfavorites('${Id}')></i>
-                      <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">ver mas
-                      </button>
                 </figcaption>
             </figure>
        `;
-        }
 
-    }
+      });
+      
 
     document.querySelector('.fav-container').innerHTML = output;
 }
