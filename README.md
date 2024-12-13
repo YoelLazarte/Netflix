@@ -18,7 +18,7 @@ Este proyecto es una replicación educativa de la interfaz y funcionalidad bási
 
 1. **Clonar el Repositorio:**
    ```bash
-   git clone https://github.com/Nicko898/Netflix.git
+   git clone https://github.com/YoelLazarte/Netflix.git
    cd netflix-clone
    ```
    
