@@ -5,13 +5,13 @@ import { useTMDB } from '../services/ComposablesTMDB';
 
 const {
   loading,
-  getNowPlayingMovies
+  getTopRatedMovies
 } = useTMDB();
 
-const nowPlayingMovies = ref([])
+const ratedMovies = ref([])
 
 onMounted(async () => {
-  nowPlayingMovies.value = await getNowPlayingMovies();
+  ratedMovies.value = await getTopRatedMovies();
 })
 
 defineProps({ 
@@ -29,7 +29,7 @@ defineProps({
 <template>
     <MovieCarousel 
     :title="title"
-    :items="nowPlayingMovies" 
+    :items="ratedMovies" 
     :loading="loading" 
     :show-arrow="showArrow" 
     />

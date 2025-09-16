@@ -1,5 +1,6 @@
 <script setup>
 import Navbar from './components/Navbar.vue';
+import Footer from './components/Footer.vue';
 
 
 </script>
@@ -13,7 +14,7 @@ import Navbar from './components/Navbar.vue';
       <!-- router-view es el marcador de posición donde Vue Router
            renderizará el componente de la ruta actual (HomeView, FavoritosView, etc.) -->
     </main>
-    
+    <Footer />
   </div>
 </template>
 

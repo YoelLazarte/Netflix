@@ -2,9 +2,6 @@
 import { ref, onMounted } from "vue"
 import MovieCard from "./MovieCard.vue"
 
-const movies = ref([])
-const liveSeries = ref([])
-const Api_Key = '3af1e6d036ffa8ef56dbfe8b3ffe931e'
 const carousel = ref(null)
 
 defineProps({
@@ -16,6 +13,15 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  items: {
+    type: Array,
+    required: true,
+    default: () => []
+  },
+  loading: {
+    type: Boolean,
+    default: false,
+  }
 })
 
 const scrollLeft = () => {
@@ -30,16 +36,16 @@ const scrollRight = () => {
   }
 }
 
-onMounted(async () => {
-  try {
-    const resp = await fetch(`https://api.themoviedb.org/3/movie/now_playing?language=es-ES&page=1&api_key=${Api_Key}`)
-    const data = await resp.json()
-    movies.value = data.results.slice(0, 15)
-    console.log(movies.value)
-  } catch (error) {
-    console.error('Error al obtener las peliculas:', error)
-  }
-});
+// onMounted(async () => {
+//   try {
+//     const resp = await fetch(`https://api.themoviedb.org/3/movie/now_playing?language=es-ES&page=1&api_key=${Api_Key}`)
+//     const data = await resp.json()
+//     movies.value = data.results.slice(0, 15)
+//     console.log(movies.value)
+//   } catch (error) {
+//     console.error('Error al obtener las peliculas:', error)
+//   }
+// });
 
 // onMounted(async () => {
 //   try {
@@ -81,10 +87,26 @@ onMounted(async () => {
         class="flex gap-4 overflow-x-auto scrollbar-hide py-2"
       >
 
-      <MovieCard 
-          v-for="movie in movies" 
-          :key="movie.id" 
-          :movie="movie"
+      <!-- Loading state -->
+      <div v-if="loading" class="flex gap-4">
+        <div 
+          v-for="i in 5" 
+          :key="`skeleton-${i}`"
+          class="flex-shrink-0 w-72 h-40 bg-gray-700 rounded-lg animate-pulse"
+        />
+      </div>
+
+      <!-- Empty state -->
+      <div v-else-if="items.length === 0" class="flex items-center justify-center w-full h-40 text-gray-400">
+        <p>No hay elementos disponibles</p>
+      </div>
+
+        <MovieCard 
+          v-else
+          v-for="(item, index) in items" 
+          :key="item.id" 
+          :movie="item"
+          :index="index"
           style="scroll-snap-align: start;"
         />
 

@@ -96,7 +96,7 @@ onUnmounted(() => {
     <img 
       :src="`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`" 
       :alt="movie.title"
-      class="w-full h-40 object-cover rounded-lg transition-transform duration-200"
+      class="w-full h-40 object-cover rounded-md transition-transform duration-200"
     />
 
     <!-- Tarjeta Hover usando Teleport -->
@@ -161,7 +161,7 @@ onUnmounted(() => {
             </p>
             <div class="flex items-center gap-3 text-sm">
               <span class="border border-gray-400 text-white px-2 py-1 text-xs">16+</span>
-              <span class="text-white">{{ new Date(movie.release_date).getFullYear() }}</span>
+              <span class="text-white">{{ new Date(movie.release_date).getFullYear() || new Date(movie.first_air_date).getFullYear() }}</span>
               <span class="border border-gray-400 text-white px-2 py-1 text-xs">HD</span>
             </div>
           </div>

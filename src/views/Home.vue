@@ -3,6 +3,7 @@
 import MoviesSection from "../components/MovieSection.vue";
 import TopBestMovies from "../components/TopBestMovies.vue";
 import LiveSeries from "../components/LiveSeries.vue";
+import RatedMovies from "../components/RatedMovies.vue";
 
 </script>
 
@@ -51,7 +52,8 @@ import LiveSeries from "../components/LiveSeries.vue";
 <div>
   <MoviesSection title="Continuar viendo contenido de Yoel" />
   <TopBestMovies />
-  <LiveSeries title="Series mas populares"/>
+  <LiveSeries title="Series más populares"/>
+  <RatedMovies title="Películas mejor calificadas"/>
 </div>
 
 </template>
