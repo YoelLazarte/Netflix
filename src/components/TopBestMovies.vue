@@ -1,18 +1,17 @@
 <script setup>
-import { ref, onMounted } from "vue"
+import { ref, onMounted } from 'vue'
+import MovieCarousel from './Carousel.vue'
+import { useTMDB } from '../services/ComposablesTMDB';
 
-const movies = ref([])
-const Api_Key = '3af1e6d036ffa8ef56dbfe8b3ffe931e';
+const {
+  loading,
+  getPopularMovies
+} = useTMDB();
+
+const popularMovies = ref([])
 
 onMounted(async () => {
-  try {
-    const res = await fetch(`https://api.themoviedb.org/3/movie/popular?language=es-ES&page=1&api_key=${Api_Key}`);
-    const data = await res.json()
-    // Solo las 10 mejores
-    movies.value = data.results.slice(0, 10)
-  } catch (error) {
-    console.error("Error al cargar películas:", error)
-  }
+  popularMovies.value = await getPopularMovies();
 })
 </script>
 
@@ -34,7 +33,7 @@ onMounted(async () => {
     </h2>
     <div class="flex space-x-6 overflow-x-auto px-15 no-scrollbar">
       <div
-        v-for="(movie, index) in movies"
+        v-for="(movie, index) in popularMovies"
         :key="movie.id"
         class="relative flex-shrink-0 w-40 md:w-40 mx-10 cursor-pointer"
       >

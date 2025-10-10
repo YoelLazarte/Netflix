@@ -19,8 +19,14 @@ export function useTMDB() {
       }
 
       const data = await response.json();
-      console.log('datos de la api:👌', data.results)
-      return data.results.slice(0, limit);
+      // console.log('datos de la api:👌', data.results)
+      // return data.results.slice(0, limit);
+
+      if (data.results) {
+        return data.results.slice(0, limit);
+      }
+      return data;
+
     } catch (error) {
       error.value = error.message;
       console.error('Error fetching data:', error)
@@ -33,7 +39,7 @@ export function useTMDB() {
 
   // Metodos especificos para cada tipo de contenido
   const getNowPlayingMovies = (limit) => fetchData('/movie/now_playing', limit);
-  const getPopularMovies = (limit) => fetchData('/movie/popular', limit);
+  const getPopularMovies = (limit = 10) => fetchData('/movie/popular', limit);
   const getTopRatedMovies = (limit) => fetchData('/movie/top_rated', limit);
   const getUpcomingMovies  = (limit) => fetchData('/movie/upcoming', limit); 
   const getTrendingMovies = (timeWindow = 'day', limit) =>
@@ -46,6 +52,12 @@ export function useTMDB() {
   const getTopRatedTV = (limit) => fetchData('/tv/top_rated', limit);
   const getOnAirTVShows  = (limit) => fetchData('/tv/on_the_air', limit);
   const getAiringTodayTVShows   = (limit) => fetchData('/tv/airing_today', limit);
+
+  // Tv y Movies
+  const getContentType = (type, id, limit) => fetchData(`/${type}/${id}`, limit);
+  const getCreditsRes = (type, id, limit) => fetchData(`/${type}/${id}/credits`, limit);
+  const getSimilarData = (type, id, limit = 6) => fetchData(`/${type}/${id}/similar`, limit);
+
 
   // metodo generico para endpoints personalizados
   const getCustomEndpoint = (endpoint, limit) => fetchData(endpoint, limit);
@@ -66,6 +78,10 @@ export function useTMDB() {
     getTopRatedTV,
     getOnAirTVShows,
     getAiringTodayTVShows,
+    // Tv y Movies
+    getContentType,
+    getCreditsRes,
+    getSimilarData,
     // Custom
     getCustomEndpoint,
   }

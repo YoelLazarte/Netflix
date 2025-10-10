@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import MovieModal from './Modal/MovieModal.vue'
 
 const props = defineProps({
   movie: {
@@ -9,11 +10,14 @@ const props = defineProps({
 })
 
 const isHovered = ref(false)
+const showModal = ref(false)
 const cardRef = ref(null)
 const hoverCardRef = ref(null)
+const isCardHovered = ref(false)
 let hoverTimer = null
 
 const showHoverCard = () => {
+  isCardHovered.value = true
   clearTimeout(hoverTimer)
   hoverTimer = setTimeout(async () => {
     isHovered.value = true
@@ -24,6 +28,7 @@ const showHoverCard = () => {
 }
 
 const hideHoverCard = () => {
+  isCardHovered.value = false
   clearTimeout(hoverTimer)
   hoverTimer = setTimeout(() => {
     isHovered.value = false
@@ -32,6 +37,15 @@ const hideHoverCard = () => {
 
 const keepHoverCard = () => {
   clearTimeout(hoverTimer)
+}
+
+const openModal = () => {
+  showModal.value = true
+  isHovered.value = false // Ocultar hover card cuando se abre modal
+}
+
+const closeModal = () => {
+  showModal.value = false
 }
 
 const positionHoverCard = () => {
@@ -93,14 +107,33 @@ onUnmounted(() => {
     @mouseleave="hideHoverCard"
   >
     <!-- Tarjeta Normal -->
-    <img 
-      :src="`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`" 
-      :alt="movie.title"
-      class="w-full h-40 object-cover rounded-md transition-transform duration-200"
-    />
+    <div class="relative overflow-hidden rounded-lg">
+      <img 
+        :src="`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`" 
+        :alt="movie.title || movie.name || 'Sin titulo'"
+        :class="[
+          'w-full h-40 object-cover transition-all duration-300 ease-out',
+          isCardHovered ? 'scale-110' : 'scale-100'
+        ]"
+      />
+
+      <!-- Overlay que aparece en hover -->
+      <div 
+        :class="[
+          'absolute inset-0 bg-black/20 transition-opacity duration-300',
+          isCardHovered ? 'opacity-100' : 'opacity-0'
+        ]"
+      />
+
+    </div>
 
     <!-- Tarjeta Hover usando Teleport -->
     <Teleport to="body">
+      <transition
+        name="hover-card"
+        appear
+      >
+
       <div 
         v-if="isHovered"
         ref="hoverCardRef"
@@ -110,24 +143,24 @@ onUnmounted(() => {
         style="animation: fadeInScale 0.2s ease-out forwards;"
       >
         <!-- Imagen de la película -->
-        <div class="relative">
+        <div class="relative overflow-hidden">
           <img 
             :src="`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`" 
-            :alt="movie.title"
+            :alt="movie.title || movie.name || 'Sin titulo'"
             class="w-full h-48 object-cover"
           />
         </div>
         
         <!-- Contenido -->
-        <div class="p-4">
+        <div class="p-4 animate-fade-in-up">
           <!-- Botones de acción -->
           <div class="flex items-center gap-2 mb-4">
-            <button class="bg-white text-black w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
+            <button class="bg-white text-black w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-200 transition-all duration-200 hover:scale-110 hover:shadow-md">
               <svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z"/>
               </svg>
             </button>
-            <button class="border-2 border-gray-400 text-white w-10 h-10 rounded-full flex items-center justify-center hover:border-white hover:bg-white/10 transition-colors">
+            <button class="border-2 border-gray-400 text-white w-10 h-10 cursor-pointer rounded-full flex items-center justify-center hover:border-white hover:bg-white/10 transition-all duration-200 hover:scale-110">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
               </svg>
@@ -145,8 +178,10 @@ onUnmounted(() => {
             
             <!-- Badge HD -->
             <div class="ml-auto">
-              <button class="border-2 border-gray-400 text-white w-10 h-10 rounded-full flex items-center justify-center hover:border-white hover:bg-white/10 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+              <button 
+                @click="openModal"
+                class="border-2 border-gray-400 text-white cursor-pointer w-10 h-10 rounded-full flex items-center justify-center hover:border-white hover:bg-white/10 transition-all duration-200 hover:scale-110 hover:rotate-180">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 transition-transform duration-200">
                   <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd" />
                 </svg>
               </button>
@@ -155,25 +190,25 @@ onUnmounted(() => {
           </div>
 
           <!-- Información de match y metadatos -->
-          <div class="mb-3">
-            <p class="text-green-400 font-bold text-lg mb-2">
+          <div class="mb-3 animate-slide-in-up" style="animation-delay: 0.1s;">
+            <p class="text-green-400 font-bold text-lg mb-2 transition-colors duration-200 hover:text-green-300">
               {{ Math.round(movie.vote_average * 10) }}% Match
             </p>
             <div class="flex items-center gap-3 text-sm">
-              <span class="border border-gray-400 text-white px-2 py-1 text-xs">16+</span>
+              <span class="border border-gray-400 text-white px-2 py-1 text-xs transition-colors duration-200 hover:border-white">16+</span>
               <span class="text-white">{{ new Date(movie.release_date).getFullYear() || new Date(movie.first_air_date).getFullYear() }}</span>
-              <span class="border border-gray-400 text-white px-2 py-1 text-xs">HD</span>
+              <span class="border border-gray-400 text-white px-2 py-1 text-xs transition-colors duration-200 hover:border-white">HD</span>
             </div>
           </div>
 
           <!-- Categorías -->
-          <!-- <div class="mb-3">
+          <div class="animate-slide-in-up" style="animation-delay: 0.2s;">
             <div class="flex flex-wrap gap-1 text-sm text-white">
-              <span class="bg-gray-700 px-2 py-1 rounded text-xs">{{ movie.genre_ids[0] }}</span>
-              <span class="bg-gray-700 px-2 py-1 rounded text-xs">Irreverente</span>
-              <span class="bg-gray-700 px-2 py-1 rounded text-xs">Terror</span>
+              <span class="bg-gray-700 px-2 py-1 rounded text-xs transition-colors duration-200 hover:bg-gray-600">Inusual</span>
+              <span class="bg-gray-700 px-2 py-1 rounded text-xs transition-colors duration-200 hover:bg-gray-600">Irreverente</span>
+              <span class="bg-gray-700 px-2 py-1 rounded text-xs transition-colors duration-200 hover:bg-gray-600">Terror</span>
             </div>
-          </div> -->
+          </div>
 
           <!-- Me gusta -->
           <!-- <div class="flex items-center gap-2 mb-3">
@@ -186,16 +221,28 @@ onUnmounted(() => {
           </div> -->
 
           <!-- Título -->
-          <h3 class="text-white font-bold text-lg mb-3">{{ movie.title }}</h3>
+          <!-- <h3 class="text-white font-bold text-lg mb-3">{{ movie.title }}</h3> -->
           
           <!-- Descripción -->
-          <p class="text-gray-300 text-sm leading-relaxed line-clamp-3">
+          <!-- <p class="text-gray-300 text-sm leading-relaxed line-clamp-3">
             {{ movie.overview || 'Sin descripción disponible' }}
-          </p>
+          </p> -->
           
         </div>
       </div>
+      
+      </transition>
     </Teleport>
+    
+    <Transition name="modal">
+      <MovieModal
+      v-if="showModal"
+      :movie="movie" 
+      :is-open="showModal" 
+      @close="closeModal" 
+      />
+    </Transition>
+  
   </div>
 </template>
 
@@ -210,6 +257,57 @@ onUnmounted(() => {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Clases de animación */
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.3s ease-out forwards;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+/* Transición para el hover card */
+.hover-card-enter-active {
+  animation: fadeInScale 0.2s ease-out;
+}
+
+.hover-card-leave-active {
+  animation: fadeInScale 0.2s ease-in reverse;
+}
+
+/* Transición para el modal */
+.modal-enter-active {
+  animation: fadeInScale 0.3s ease-out;
+}
+
+.modal-leave-active {
+  animation: fadeInScale 0.25s ease-in reverse;
 }
 
 /* .line-clamp-3 {
