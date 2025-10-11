@@ -1,6 +1,6 @@
 # 🎬 Netflix Clone
 
-![Portada del Proyecto](./public/img/portada-netflix.png)
+![Project Cover](./public/img/portada-netflix.png)
 
 <p align="center">
   <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
@@ -9,74 +9,74 @@
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
 </p>
 
-> Un **clon visual y funcional inspirado en Netflix**, desarrollado con **Vite + Vue.js + Tailwind CSS**.  
-> Este proyecto recrea la interfaz moderna de Netflix, con diseño responsive, componentes reutilizables y una estructura escalable pensada para aprendizaje y práctica de desarrollo frontend.
+> A **visual and functional clone inspired by Netflix**, built with **Vite + Vue.js + Tailwind CSS**.  
+> This project recreates Netflix’s modern interface, featuring a responsive design, reusable components, and a scalable structure focused on learning and frontend development practice.
 
 ---
 
-## 🚀 Tecnologías utilizadas
+## 🚀 Technologies Used
 
-- ⚡ **[Vite](https://vitejs.dev/)** → entorno de desarrollo rápido y moderno.  
-- 🖼️ **[Vue.js 3](https://vuejs.org/)** → framework progresivo para construir interfaces dinámicas.  
-- 🎨 **[Tailwind CSS](https://tailwindcss.com/)** → estilos rápidos, personalizables y responsivos.  
-- 🔄 **Arquitectura modular** → separación clara entre componentes, vistas y estilos.
-
----
-
-## 🧩 Características principales
-
-✅ Interfaz inspirada en Netflix (inicio, series, películas, etc.)  
-✅ Diseño **100% responsive** adaptable a móviles y escritorio  
-✅ Componentes reutilizables (Navbar, Cards, Modal de información)  
-✅ Organización limpia de carpetas y código con **Vite + Vue 3**  
-✅ Estilos visuales modernos con **Tailwind CSS**
+- ⚡ **[Vite](https://vitejs.dev/)** → fast and modern development environment.  
+- 🖼️ **[Vue.js 3](https://vuejs.org/)** → progressive framework for building dynamic interfaces.  
+- 🎨 **[Tailwind CSS](https://tailwindcss.com/)** → fast, customizable, and responsive styling.  
+- 🔄 **Modular architecture** → clear separation between components, views, and styles.
 
 ---
 
-## ⚙️ Instalación y ejecución
+## 🧩 Main Features
 
-Para ejecutar el proyecto localmente, seguí estos pasos 👇
+✅ Netflix-inspired interface (home, series, movies, etc.)  
+✅ **100% responsive** design adaptable to mobile and desktop  
+✅ Reusable components (Navbar, Cards, Info Modals)  
+✅ Clean folder and code organization with **Vite + Vue 3**  
+✅ Modern visual style using **Tailwind CSS**
+
+---
+
+## ⚙️ Installation & Setup
+
+To run the project locally, follow these steps 👇
 
 ```bash
-# 1️⃣ Clona el repositorio
+# 1️⃣ Clone the repository
 git clone https://github.com/YoelLazarte/Netflix.git
 
-# 2️⃣ Entra al directorio del proyecto
+# 2️⃣ Navigate to the project directory
 cd Netflix
 
-# 3️⃣ Instala las dependencias
+# 3️⃣ Install dependencies
 npm install
 
-# 4️⃣ Inicia el servidor de desarrollo
-npm run dev 
+# 4️⃣ Start the development server
+npm run dev
 ```
 
 ---
 
-## 📂 Estructura de carpetas
+## 📂 Project Structure
 ```
-├── public            # Recursos estáticos (p. ej., imágenes)
-├── src               # Archivos fuente del proyecto principal
-│   ├── components    # Componentes reutilizables
-│       └── modal     # Modales de información
-│   ├── router        # Configuración y navegación del enrutador
-│   ├── services      # Servicios y utilidades de la aplicación
-│   ├── pages         # Paginas de la aplicación
-├── package.json      # Dependencias y scripts del proyecto
-└── README.md         # Documentación del proyecto
+├── public            # Static assets (e.g., images)
+├── src               # Main source files
+│   ├── components    # Reusable components
+│       └── modal     # Information modals
+│   ├── router        # Router configuration and navigation
+│   ├── services      # App services and utilities
+│   ├── pages         # Application pages
+├── package.json      # Project dependencies and scripts
+└── README.md         # Project documentation
 ```
 
 ---
 
-👨‍💻 Autor
+### 👨‍💻 Author
 
 Yoel Lazarte
-Desarrollador Full stack | Apasionado por las interfaces limpias y funcionales
+Full Stack Developer | Passionate about clean and functional interfaces
 
 📧 yoelazarte04@gmail.com
 
+---
+## 📝 License
 
-📝 Licencia
-
-Este proyecto está bajo la licencia MIT.
-Podés usarlo, modificarlo y distribuirlo libremente, con la debida atribución.
+This project is licensed under the MIT License.
+You are free to use, modify, and distribute it with proper attribution.
