@@ -36,33 +36,12 @@ const scrollRight = () => {
   }
 }
 
-// onMounted(async () => {
-//   try {
-//     const resp = await fetch(`https://api.themoviedb.org/3/movie/now_playing?language=es-ES&page=1&api_key=${Api_Key}`)
-//     const data = await resp.json()
-//     movies.value = data.results.slice(0, 15)
-//     console.log(movies.value)
-//   } catch (error) {
-//     console.error('Error al obtener las peliculas:', error)
-//   }
-// });
-
-// onMounted(async () => {
-//   try {
-//     const resp = await fetch(`https://api.themoviedb.org/3/trending/tv/day?language=es-ES&api_key=${Api_Key}`)
-//     const data = await resp.json()
-//     liveSeries.value = data.results.slice(0, 15)
-//   } catch (error) {
-//     console.error('Error al obtener las peliculas:', error)
-//   }
-// });
-
 </script>
 
 <template>
-  <section class="px-15 py-6 pb-12">
+  <section class="py-6 pb-12">
     <!-- Título -->
-    <h3 class="text-2xl font-semibold mb-6 text-white">
+    <h3 class="text-xl md:text-2xl font-semibold mb-2 md:mb-6 text-white">
       {{ title }}
       <span v-if="showArrow" class="text-blue-400 cursor-pointer hover:underline ml-2">›</span>
     </h3>
@@ -72,7 +51,7 @@ const scrollRight = () => {
       <!-- Botón izquierdo -->
       <button 
         @click="scrollLeft"
-        class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/80 text-white p-3 rounded-full hover:bg-black transition-all opacity-0 group-hover:opacity-100 shadow-lg"
+        class="absolute hidden md:flex left-2 top-1/2 -translate-y-1/2 z-10 bg-black/80 text-white p-3 rounded-full hover:bg-black transition-all opacity-0 group-hover:opacity-100 shadow-lg"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
           <path fill-rule="evenodd"
@@ -115,7 +94,7 @@ const scrollRight = () => {
       <!-- Botón derecho -->
       <button 
         @click="scrollRight"
-        class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/80 text-white p-3 rounded-full hover:bg-black transition-all opacity-0 group-hover:opacity-100 shadow-lg"
+        class="absolute hidden md:flex right-2 top-1/2 -translate-y-1/2 z-10 bg-black/80 text-white p-3 rounded-full hover:bg-black transition-all opacity-0 group-hover:opacity-100 shadow-lg"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
           <path fill-rule="evenodd"
@@ -123,6 +102,23 @@ const scrollRight = () => {
             clip-rule="evenodd" />
         </svg>
       </button>
+
+       <button 
+          @click="scrollLeft"
+          class="md:hidden absolute left-2 top-1/2 -translate-y-1/2 bg-black/80 backdrop-blur-sm text-white w-10 h-10 rounded-full flex items-center justify-center z-20 shadow-xl"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <button 
+          @click="scrollRight"
+          class="md:hidden absolute right-2 top-1/2 -translate-y-1/2 bg-black/80 backdrop-blur-sm text-white w-10 h-10 rounded-full flex items-center justify-center z-20 shadow-xl"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
     </div>
   </section>
 </template>
