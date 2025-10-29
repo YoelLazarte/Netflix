@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
-import MovieModal from './modal/MovieModal.vue'
+import MovieModal from './Modal/MovieModal.vue'
 
 const props = defineProps({
   movies: {
